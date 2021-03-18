@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- crds.yaml
+- service-account.yaml
+- cluster-role.yaml
+- cluster-role-binding.yaml
+- deployment.yaml
+- task.yaml
+- pipeline.yaml
+- service.yaml
+namespace: tekton-pipelines
+images:
+- name: gcr.io/tekton-nightly/dashboard
+  newName: registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new
+  newTag: tekton-dashboard-1.0.2

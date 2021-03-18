@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tekton-dashboard
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: tekton-dashboard
+    spec:
+      containers:
+      - name: tekton-dashboard
+        image: registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:tekton-dashboard-1.0.2
+        ports:
+        - containerPort: 9097
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9097
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 9097
+        resources:
+        env:
+        - name: PORT
+          value: "9097"
+        - name: WEB_RESOURCES_DIR
+          value: /var/run/ko/web
+        - name: PIPELINE_RUN_SERVICE_ACCOUNT
+          value: ""
+        - name: INSTALLED_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+      serviceAccountName: tekton-dashboard
