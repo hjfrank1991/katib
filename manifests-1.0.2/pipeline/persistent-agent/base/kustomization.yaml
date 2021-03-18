@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+nameprefix: ml-pipeline-
+commonLabels:
+  app: ml-pipeline-persistenceagent
+resources:
+- clusterrole-binding.yaml
+- clusterrole.yaml
+- deployment.yaml
+- service-account.yaml
+images:
+- name: gcr.io/ml-pipeline/persistenceagent
+  newTag: persistenceagent-1.0.2
+  newName: registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new
