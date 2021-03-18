@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: katib-config
+data:
+  metrics-collector-sidecar: |-
+    {
+      "StdOut": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:file-metrics-collector-v0.8.0"
+      },
+      "File": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:file-metrics-collector-v0.8.0"
+      },
+      "TensorFlowEvent": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:tfevent-metrics-collector-v0.8.0",
+        "resources": {
+          "limits": {
+            "memory": "1Gi"
+          }
+        }
+      }
+    }
+  suggestion: |-
+    {
+      "random": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:suggestion-hyperopt-v0.8.0"
+      },
+      "grid": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:suggestion-chocolate-v0.8.0"
+      },
+      "hyperband": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:suggestion-hyperband-v0.8.0"
+      },
+      "bayesianoptimization": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:suggestion-skopt-v0.8.0"
+      },
+      "tpe": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:suggestion-hyperopt-v0.8.0"
+      },
+      "nasrl": {
+        "image": "registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:suggestion-nasrl-v0.8.0",
+        "imagePullPolicy": "Always",
+        "resources": {
+          "limits": {
+            "memory": "200Mi"
+          }
+        }
+      }
+    }
