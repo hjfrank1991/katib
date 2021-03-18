@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- daemon-set.yaml
+commonLabels:
+  kustomize.component: gpu-driver
+images:
+- name: gcr.io/google-containers/pause
+  newName: registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new
+  newTag: 'pause-2.0'
+- name: cos-nvidia-installer
+  newName: cos-nvidia-installer
+  newTag: fixed
