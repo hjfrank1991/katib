@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: spartakus
+  name: spartakus-volunteer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spartakus-volunteer
+    spec:
+      containers:
+      - args:
+        - volunteer
+        - --cluster-id=$(usageId)
+        - --database=https://stats-collector.kubeflow.org
+        image: registry.cn-hangzhou.aliyuncs.com/frank_1991/kubeflow_new:spartakus-amd64-1.0.2
+        name: volunteer
+      serviceAccountName: spartakus
